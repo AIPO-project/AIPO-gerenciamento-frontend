@@ -16,9 +16,9 @@ form.addEventListener('submit', async function(event) {
         const data = await response.json();
 
         if (response.ok) {
-        console.log(data.message);
+        console.log(data);
         } else {
-        console.log(data.message)
+        console.log(data)
         }
     } catch (error) {
         console.error('Erro:', error);
