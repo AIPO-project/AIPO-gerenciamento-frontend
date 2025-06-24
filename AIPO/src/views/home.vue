@@ -30,32 +30,48 @@ export default {
   methods: {
     async enviarDadosLogin() {
       try {
+        // Verifica se os campos estão preenchidos
+        if (!this.matricula || !this.senha) {
+          this.message = "Por favor, preencha todos os campos.";
+          return;
+        }
+
+        // Envia os dados de login para a api
         const response = await fetch("http://127.0.0.1:5000/api/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({matricula: this.matricula, senha: this.senha,}),
         });
-
+        // Armazena a resposta da api
         const data = await response.json();
-
+        
+        // Verifica se a resposta é ok (status 200)
         if (response.ok) {
-          console.log(data);
-          this.message = "Login bem-sucedido!";
+          // Armazena o token de acesso no sectionStorage
+          sessionStorage.setItem("access_token", data.access_token);
+          sessionStorage.setItem("refresh_token", data.refresh_token);
+
+          // verifica se o usuario está cadastrado no sistema
           const response = await fetch("http://127.0.0.1:5000/api/users/"+this.matricula, {
             method: "GET",
-            headers: { "Authorization": "Bearer "+ data.access_token, "Content-Type": "application/json" },
+            headers: { "Authorization": "Bearer "+ sessionStorage.getItem("access_token"), "Content-Type": "application/json" },
             });
+            // Se estiver cadastrado, redireciona para a página "perfil"
             if (response.ok) {
               this.$router.push('/about')
+            // Se não estiver cadastrado, redireciona para a página "cadastro"
             }else {
                 this.message = "Erro ao buscar dados do usuário, vá se cadastrar.";
             }
-        } else {
+        } 
+        //Se a resposta não for ok, exibe a mensagem de erro
+        else {
           console.log(data);
-          this.message = data.message || "Credenciais inválidas.";
+          this.message = data.message;
         }
-      } catch (error) {
-        console.error("Erro:", error);
+      } 
+      // Captura erros de rede ou outros problemas
+      catch (error) {
         this.message = "Erro ao conectar com o servidor.";
       }
     },
