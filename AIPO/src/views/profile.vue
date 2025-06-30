@@ -1,18 +1,29 @@
 <template>
   <div class="container">
+
     <aside class="sidebar">
-      <h1 class="logo">AIPO</h1>
-      <p>Acesso Inteligente a Portas</p>
+      <div class="logo">
+        <img src="../assets/logo_branca.png" alt="">
+
+        <div class="name-logo">
+          <h1>AIPO</h1>
+          <h4>Acesso Inteligente a Portas</h4>
+        </div>
+
+      </div>
+      
       <nav>
-        <a href="#" class="active">Profile</a>
-        <a href="#">Dashboard</a>
+        <a href="" class="active"> <i class="fa-solid fa-user"></i>  Profile</a> 
+        <a href="#" >Dashboard </a> <i class="fa-solid fa-square-poll-vertical"></i>
         <a href="#">Salas</a>
       </nav>
       <button class="logout">LOG OUT</button>
     </aside>
 
     <main class="main">
-      <header class="banner"></header>
+      <div class="banner">
+        <img src="../assets/fundo.jpg" alt="">
+      </div>
       <section class="profile-card">
         <div class="user-info">
           <img :src="user.photo" alt="User Photo" />
@@ -84,40 +95,88 @@ export default {
 </script>
 
 <style scoped>
+/* CONTAINER */
 .container {
   display: flex;
+  height: 100vh;
+  width: 100%;
+  background: rgba(240, 242, 245, 1);
 }
+
+/* SIDEBAR */
 .sidebar {
-  width: 250px;
-  background: #222;
-  color: white;
+  background: #347b37;
+  color: #F2F4F1;
   padding: 1rem;
+  border-radius: 15px;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
-.sidebar .logo {
+
+/* SIDEBAR LOGO */
+.sidebar .logo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.sidebar .logo img {
+  width: 80px;
+  height: 80px;
+}
+
+.sidebar .logo .name-logo h1{
   font-size: 1.8rem;
+  margin: 0;
+  padding: 0;
 }
+
+.sidebar .logo .name-logo h4 {
+  font-size: 0.8rem;
+  margin: 0;
+  padding: 0;
+  
+}
+
+/* NAV BAR */
 .sidebar nav a {
   display: block;
   color: white;
-  margin: 0.5rem 0;
+  text-decoration: none;
+  margin-top: 50px;
+  border-radius: 3px;
+
 }
 .sidebar nav .active {
   font-weight: bold;
 }
 .logout {
-  margin-top: 1rem;
+  margin-top: 22rem;
+  border-radius: 5px;
 }
 .main {
   flex: 1;
   padding: 1rem;
 }
-.banner {
-  height: 150px;
-  background: #ddd;
+
+.banner  img {
+  object-fit: cover;
+  object-position: 0 30%;
+  height: 250px;
+  width: 100%;
+  border-radius: 15px;
 }
 .profile-card {
-  background: #f9f9f9;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-color: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 1rem;
+  border-radius: 15px;
+  position: relative;
+  top: -50px;
 }
 .user-info {
   display: flex;
@@ -136,10 +195,10 @@ export default {
   margin-top: 1rem;
 }
 .card {
-  background: white;
+  background-color: rgba(255, 255, 255, 0.92);
   padding: 1rem;
   flex: 1;
-  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
 .card h3 {
